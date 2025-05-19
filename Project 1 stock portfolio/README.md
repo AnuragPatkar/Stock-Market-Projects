@@ -33,7 +33,7 @@ Open a terminal/command prompt
 Navigate to the folder containing the file
 Run: python stock_portfolio.py (or python3 portfolio_calculator.py on Mac/Linux)
 Follow the prompts to enter your stock information
-🎓 Educational Value
+## 🎓 Educational Value
 This project demonstrates several fundamental Python concepts:
 
 Variables and Data Types: Using strings, integers, and floats

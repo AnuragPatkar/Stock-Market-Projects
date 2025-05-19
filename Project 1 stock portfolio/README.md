@@ -47,7 +47,7 @@ It's an excellent starting point for beginners interested in financial applicati
 
 ## 📊 Example Output
 
-###### STOCK PORTFOLIO SUMMARY CALCULATOR 
+#### STOCK PORTFOLIO SUMMARY CALCULATOR 
 
 Enter details for your stock positions below:
 

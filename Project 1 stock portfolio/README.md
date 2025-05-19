@@ -16,7 +16,7 @@ A beginner-friendly Python program that tracks stock portfolio performance and c
 * No external libraries required - uses only Python standard library
 * No programming experience required!
 
-💻 Local Installation
+## 💻 Local Installation
 If you prefer to run the program on your own computer:
 
 Install Python:
@@ -25,7 +25,7 @@ Download and install Python from python.org
 Make sure to check "Add Python to PATH" during installation (Windows)
 Download the Code:
 
-Download the portfolio_calculator.py file from this repository
+Download the stock_portfolio.py file from this repository
 Or create a new file and copy-paste the code
 Run the Program:
 
@@ -36,16 +36,19 @@ Follow the prompts to enter your stock information
 ## 🎓 Educational Value
 This project demonstrates several fundamental Python concepts:
 
-Variables and Data Types: Using strings, integers, and floats
-Lists: Storing collections of related data
-Input/Output: Getting user input and displaying formatted results
-Arithmetic Operations: Calculating financial metrics
-Conditional Logic: Determining portfolio performance status
-Loops: Processing multiple stock positions
+- Variables and Data Types: Using strings, integers, and floats
+- Lists: Storing collections of related data
+- Input/Output: Getting user input and displaying formatted results
+- Arithmetic Operations: Calculating financial metrics
+- Conditional Logic: Determining portfolio performance status
+- Loops: Processing multiple stock positions
+
 It's an excellent starting point for beginners interested in financial applications of Python.
 
-📊 Example Output
-===== STOCK PORTFOLIO SUMMARY CALCULATOR =====
+## 📊 Example Output
+
+###### STOCK PORTFOLIO SUMMARY CALCULATOR 
+
 Enter details for your stock positions below:
 
 Stock #1:
@@ -62,16 +65,19 @@ Enter number of shares: 10
 
 📈 INDIVIDUAL STOCK PERFORMANCE:
 ------------------------------------------------------------
-SYMBOL   SHARES   PURCHASE    CURRENT     VALUE        P/L($)        P/L(%)    
-------------------------------------------------------------
-AAPL     10       $150.00     $175.25     $1752.50     $252.50       16.83%    🟢
-MSFT     5        $250.00     $265.75     $1328.75     $78.75        6.30%     🟢
-GOOGL    2        $2500.00    $2450.50    $4901.00     $-199.00      -2.00%    🔴
+### Portfolio Summary
+
+| SYMBOL | SHARES | PURCHASE | CURRENT  | VALUE    | P/L ($)  | P/L (%) | STATUS |
+|--------|--------|----------|----------|----------|----------|---------|--------|
+| AAPL   | 10     | $150.00  | $175.25  | $1752.50 | $252.50  | 16.83%  | 🟢     |
+| MSFT   | 5      | $250.00  | $265.75  | $1328.75 | $78.75   | 6.30%   | 🟢     |
+| GOOGL  | 2      | $2500.00 | $2450.50 | $4901.00 | $-199.00 | -2.00%  | 🔴     |
+
 
 💼 PORTFOLIO SUMMARY:
 ------------------------------------------------------------
-Total Investment: $5750.00
-Current Portfolio Value: $7982.25
-Overall Profit/Loss: $132.25 (2.30%) 🟢
+- Total Investment: $5750.00
+- Current Portfolio Value: $7982.25
+- Overall Profit/Loss: $132.25 (2.30%) 🟢
 
 🎉 Your portfolio is performing well with positive returns!

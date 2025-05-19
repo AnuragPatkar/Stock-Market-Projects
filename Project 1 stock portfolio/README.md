@@ -3,18 +3,18 @@ Python Status License Beginner Friendly
 
 A beginner-friendly Python program that tracks stock portfolio performance and calculates key metrics. This project demonstrates fundamental Python concepts.
 
-🌟 Features
-Track multiple stock positions (symbol, purchase price, current price, shares)
-Calculate current value, profit/loss in dollars, and percentage returns
-Generate a complete portfolio summary with overall performance metrics
-Beginner-friendly implementation using only basic Python concepts
-Visual indicators (emojis) to easily identify profitable positions
+## 🌟 Features
+* Track multiple stock positions (symbol, purchase price, current price, shares)
+* Calculate current value, profit/loss in dollars, and percentage returns
+* Generate a complete portfolio summary with overall performance metrics
+* Beginner-friendly implementation using only basic Python concepts
+* Visual indicators (emojis) to easily identify profitable positions
 
 
-📋 Prerequisites
-Python 3.6 or higher (for local installation)
-No external libraries required - uses only Python standard library
-No programming experience required!
+## 📋 Prerequisites
+* Python 3.6 or higher (for local installation)
+* No external libraries required - uses only Python standard library
+* No programming experience required!
 
 💻 Local Installation
 If you prefer to run the program on your own computer:

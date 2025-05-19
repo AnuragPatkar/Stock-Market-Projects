@@ -57,7 +57,7 @@ Enter number of shares: 10
 ... (additional stocks) ...
 
 ============================================================
-📊 STOCK PORTFOLIO SUMMARY 📊
+# 📊 STOCK PORTFOLIO SUMMARY 📊
 ============================================================
 
 📈 INDIVIDUAL STOCK PERFORMANCE:

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3>Nifty 50 Stock Screener</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('screen') }}">
+                    <div class="mb-3">
+                        <h5>Select Screening Option:</h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="screen_type" id="screen_all" value="all" checked>
+                            <label class="form-check-label" for="screen_all">
+                                Screen All Stocks
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="screen_type" id="screen_sector" value="sector">
+                            <label class="form-check-label" for="screen_sector">
+                                Screen by Sector
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3" id="sector-select" style="display: none;">
+                        <label for="sector" class="form-label">Select Sector:</label>
+                        <select class="form-select" name="sector" id="sector">
+                            {% for sector in sectors %}
+                            <option value="{{ sector }}">{{ sector }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Run Screener</button>
+                </form>
+            </div>
+            <div class="card-footer text-muted">
+                {% if now %}
+                Last updated: {{ now.strftime('%Y-%m-%d %H:%M:%S') }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const screenAll = document.getElementById('screen_all');
+    const screenSector = document.getElementById('screen_sector');
+    const sectorSelect = document.getElementById('sector-select');
+
+    screenAll.addEventListener('change', function() {
+        sectorSelect.style.display = 'none';
+    });
+
+    screenSector.addEventListener('change', function() {
+        sectorSelect.style.display = 'block';
+    });
+});
+</script>
+{% endblock %}

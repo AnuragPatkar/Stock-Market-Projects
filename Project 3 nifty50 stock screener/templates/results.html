@@ -1,0 +1,303 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Stock Screening Results</h2>
+    
+    {% if results is undefined or not results %}
+    <div class="alert alert-warning">
+        No stocks found matching your criteria. Please go back and try again.
+    </div>
+    {% else %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    {# Explicitly define all table headers here #}
+                    <th>Symbol</th>
+                    <th>Name</th>
+                    <th>Current Price (₹)</th>
+                    <th>Rating</th>
+                    <th>Total Score</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in results %}
+                <tr>
+                    <td>{{ stock.symbol if stock.symbol is defined else 'N/A' }}</td>
+                    <td>{{ stock.name if stock.name is defined else 'N/A' }}</td>
+                    <td>₹{{ "%.2f"|format(stock.current_price) if stock.current_price is defined and stock.current_price is not none else 'N/A' }}</td>
+                    <td>
+                        {% if stock.rating is defined %}
+                            {% if stock.rating == "Strong Buy" %}
+                            <span class="badge bg-success">{{ stock.rating }}</span>
+                            {% elif stock.rating == "Moderate Buy" %}
+                            <span class="badge bg-primary">{{ stock.rating }}</span>
+                            {% elif stock.rating == "Hold" %}
+                            <span class="badge bg-warning text-dark">{{ stock.rating }}</span>
+                            {% else %}
+                            <span class="badge bg-danger">{{ stock.rating }}</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="badge bg-secondary">N/A</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ stock.total_score if stock.total_score is defined and stock.total_score is not none else 0 }}</td>
+                    <td>
+                        {# Button to trigger the modal. Data attributes store the stock's symbol for JS lookup #}
+                        <button type="button" class="btn btn-sm btn-info view-details-btn" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#stockDetailModal"
+                                data-stock-symbol="{{ stock.symbol }}"> {# Use stock.symbol as a unique identifier for JS lookup #}
+                            View Details
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        <h4>Rating Distribution</h4>
+        <div class="chart-container" style="height: 300px; position: relative;">
+            <canvas id="ratingChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{# --- Bootstrap Modal Structure for Stock Details --- #}
+<div class="modal fade" id="stockDetailModal" tabindex="-1" aria-labelledby="stockDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="stockDetailModalLabel">Stock Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {# Content will be populated by JavaScript #}
+                <div id="modal-stock-details">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{# --- End Bootstrap Modal --- #}
+
+{% if results is defined and results %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{# Import Chart.js DataLabels plugin #}
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Chart.js Pie Chart Logic ---
+    try {
+        const resultsData = {{ results|default([], true)|tojson | safe }}.filter(Boolean); 
+        
+        const counts = {
+            strongBuy: resultsData.filter(stock => (stock?.rating || '') === 'Strong Buy').length,
+            moderateBuy: resultsData.filter(stock => (stock?.rating || '') === 'Moderate Buy').length,
+            hold: resultsData.filter(stock => (stock?.rating || '') === 'Hold').length,
+            sell: resultsData.filter(stock => (stock?.rating || '') === 'Sell').length
+        };
+
+        const ctx = document.getElementById('ratingChart');
+        if (ctx) {
+            Chart.register(ChartDataLabels); // Register the datalabels plugin
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: ['Strong Buy', 'Moderate Buy', 'Hold', 'Sell'],
+                    datasets: [{
+                        data: [counts.strongBuy, counts.moderateBuy, counts.hold, counts.sell],
+                        backgroundColor: [
+                            'rgba(40, 167, 69, 0.8)',   // Strong Buy (green)
+                            'rgba(0, 123, 255, 0.8)',  // Moderate Buy (blue)
+                            'rgba(255, 193, 7, 0.8)',  // Hold (yellow)
+                            'rgba(220, 53, 69, 0.8)'   // Sell (red)
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const value = context.raw || 0;
+                                    const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                                    return `${context.label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        },
+                        datalabels: { // Chart.js DataLabels Plugin configuration for better annotations
+                            color: '#fff', // White color for the labels
+                            font: {
+                                weight: 'bold',
+                                size: 12
+                            },
+                            formatter: (value, context) => {
+                                const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                                // Display count and percentage, but only if percentage is meaningful
+                                return percentage > 0 ? `${value}\n(${percentage}%)` : ''; 
+                            },
+                            textStrokeColor: '#000', // Outline for better readability on various backgrounds
+                            textStrokeWidth: 2,
+                            anchor: 'center', // Try to center labels within slices
+                            align: 'center',
+                            offset: 0,
+                            borderRadius: 4,
+                            backgroundColor: (context) => {
+                                return context.dataset.backgroundColor[context.dataIndex]; // Use slice color as background
+                            },
+                            padding: 6
+                        }
+                    }
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error rendering chart:', error);
+        const container = document.querySelector('.chart-container');
+        if (container) {
+            container.innerHTML = '<div class="alert alert-danger">Could not load chart visualization</div>';
+        }
+    }
+
+    // --- Modal Logic for Stock Details ---
+    const stockDetailModal = document.getElementById('stockDetailModal');
+    const modalTitle = stockDetailModal.querySelector('#stockDetailModalLabel');
+    const modalBodyContent = stockDetailModal.querySelector('#modal-stock-details');
+
+    // Get the results data passed from Flask. This is crucial for populating the modal.
+    const allStocksData = {{ results|default([], true)|tojson | safe }}; 
+
+    stockDetailModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        const button = event.relatedTarget; 
+        const stockSymbol = button.getAttribute('data-stock-symbol');
+
+        // Clear previous content and show a spinner
+        modalBodyContent.innerHTML = `
+            <div class="d-flex justify-content-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading details...</span>
+                </div>
+            </div>
+        `;
+        modalTitle.textContent = `Details for ${stockSymbol}`;
+
+        // Find the specific stock data from the allStocksData array using the symbol
+        const stock = allStocksData.find(s => s.symbol === stockSymbol);
+
+        if (stock) {
+            // Construct the HTML for the modal body
+            let detailsHtml = `
+                <dl class="row">
+                    <dt class="col-sm-5">Name:</dt>
+                    <dd class="col-sm-7">${stock.name || 'N/A'}</dd>
+
+                    <dt class="col-sm-5">Symbol:</dt>
+                    <dd class="col-sm-7">${stock.symbol || 'N/A'}</dd>
+
+                    <dt class="col-sm-5">Sector:</dt>
+                    <dd class="col-sm-7">${stock.sector || 'N/A'}</dd>
+
+                    <dt class="col-sm-5">Current Price:</dt>
+                    <dd class="col-sm-7">₹${(stock.current_price !== undefined && stock.current_price !== null) ? stock.current_price.toFixed(2) : 'N/A'}</dd>
+
+                    <dt class="col-sm-5">Rating:</dt>
+                    <dd class="col-sm-7">
+                        ${stock.rating ? `<span class="badge bg-${stock.rating === 'Strong Buy' ? 'success' : stock.rating === 'Moderate Buy' ? 'primary' : stock.rating === 'Hold' ? 'warning text-dark' : 'danger'}">${stock.rating}</span>` : '<span class="badge bg-secondary">N/A</span>'}
+                    </dd>
+
+                    <dt class="col-sm-5">Total Score:</dt>
+                    <dd class="col-sm-7">${stock.total_score !== undefined && stock.total_score !== null ? stock.total_score : 0}</dd>
+                </dl>
+
+                <h6>Technical Data:</h6>
+                <dl class="row">
+                    <dt class="col-sm-5">50-Day MA:</dt>
+                    <dd class="col-sm-7">₹${(stock.ma_50 !== undefined && stock.ma_50 !== null) ? stock.ma_50.toFixed(2) : 'N/A'}</dd>
+
+                    <dt class="col-sm-5">200-Day MA:</dt>
+                    <dd class="col-sm-7">₹${(stock.ma_200 !== undefined && stock.ma_200 !== null) ? stock.ma_200.toFixed(2) : 'N/A'}</dd>
+                    <dt class="col-sm-5">Beta:</dt>
+                    <dd class="col-sm-7">
+                        ${(stock.beta !== undefined && stock.beta !== null) ? stock.beta.toFixed(2) : 'N/A'}
+                    </dd>
+                </dl>
+
+                <h6>Fundamental Data:</h6>
+                <dl class="row">
+                    <dt class="col-sm-5">P/E Ratio:</dt>
+                    <dd class="col-sm-7">
+                        ${(stock.pe_ratio !== undefined && stock.pe_ratio !== null) ? stock.pe_ratio.toFixed(2) : 'N/A'}
+                    </dd>
+
+                    <dt class="col-sm-5">Debt/Equity:</dt>
+                    <dd class="col-sm-7">
+                        ${(stock.debt_equity !== undefined && stock.debt_equity !== null) ? stock.debt_equity.toFixed(2) : 'N/A'}
+                    </dd>
+
+                    <dt class="col-sm-5">Dividend Yield:</dt>
+                    <dd class="col-sm-7">
+                        ${(stock.dividend_yield !== undefined && stock.dividend_yield !== null) ? stock.dividend_yield.toFixed(2) + '%' : 'N/A'}
+                    </dd>
+                </dl>
+
+                <h6>Other Info:</h6>
+                <dl class="row">
+                    <dt class="col-sm-5">Market Cap:</dt>
+                    <dd class="col-sm-7">
+                        ${(stock.market_cap !== undefined && stock.market_cap !== null && stock.market_cap !== 'N/A') ? '₹' + stock.market_cap.toLocaleString('en-IN') : 'N/A'}
+                    </dd>
+
+                    <dt class="col-sm-5">Volume:</dt>
+                    <dd class="col-sm-7">
+                        ${(stock.volume !== undefined && stock.volume !== null && stock.volume !== 'N/A') ? stock.volume.toLocaleString('en-IN') : 'N/A'}
+                    </dd>
+
+                    <dt class="col-sm-5">52 Week High:</dt>
+                    <dd class="col-sm-7">₹${(stock['52_week_high'] !== undefined && stock['52_week_high'] !== null) ? stock['52_week_high'].toFixed(2) : 'N/A'}</dd>
+
+                    <dt class="col-sm-5">52 Week Low:</dt>
+                    <dd class="col-sm-7">₹${(stock['52_week_low'] !== undefined && stock['52_week_low'] !== null) ? stock['52_week_low'].toFixed(2) : 'N/A'}</dd>
+
+                    <dt class="col-sm-5">Last Data Update:</dt>
+                    <dd class="col-sm-7">${stock.last_updated || 'N/A'}</dd>
+                </dl>
+            `;
+            modalBodyContent.innerHTML = detailsHtml;
+        } else {
+            modalBodyContent.innerHTML = '<div class="alert alert-danger">Stock details not found.</div>';
+        }
+    });
+});
+</script>
+{% endif %}
+{% endblock %}

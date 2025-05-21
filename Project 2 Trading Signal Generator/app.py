@@ -4,7 +4,7 @@ st.title("📈 Trading Signal Generator")
 st.markdown("Enter the following metrics for your stock:")
 
 # Get input from user
-symbol = st.text_input("Enter stock symbol:").upper()
+symbol = st.text_input("Enter stock symbol:").upper( )
 current_price = st.number_input("Enter Current Price ($)", step=0.01)
 ma_50 = st.number_input("Enter 50-day Moving Average ($)", step=0.01)
 ma_200 = st.number_input("Enter 200-day Moving Average ($)", step=0.01)

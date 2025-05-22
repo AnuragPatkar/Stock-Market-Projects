@@ -41,14 +41,14 @@ View Results: The application will display the calculated price for both Call an
 ## Core Formulas
 
 ### Call Option Price
-\[ C = S N(d_1) - K e^{-rT} N(d_2) \]
+\[ C = S N(d1) - K e^{-rT} N(d2) \]
 
 ### Put Option Price
-\[ P = K e^{-rT} N(-d_2) - S N(-d_1) \]
+\[ P = K e^{-rT} N(-d2) - S N(-d1) \]
 
 ### Intermediate Calculations
-\[ d_1 = \frac{\ln(S/K) + (r + \sigma^2/2)T}{\sigma \sqrt{T}} \]
-\[ d_2 = d_1 - \sigma \sqrt{T} \]
+\[ d1 = \frac{\ln(S/K) + (r + \sigma^2/2)T}{\sigma \sqrt{T}} \]
+\[ d2 = d1 - \sigma \sqrt{T} \]
 
 Where:
 - \( S \) = Current stock price
@@ -61,28 +61,28 @@ Where:
 ## Option Greeks
 
 ### Delta (Δ)
-- **Call**: \( N(d_1) \)
-- **Put**: \( N(d_1) - 1 \) (or \( -N(-d_1) \))
+- **Call**: \( N(d1) \)
+- **Put**: \( N(d1) - 1 \) (or \( -N(-d1) \))
 
 ### Gamma (Γ)
-\[ \Gamma = \frac{N'(d_1)}{S \sigma \sqrt{T}} \]
+\[ \Gamma = \frac{N'(d1)}{S \sigma \sqrt{T}} \]
 Where \( N'(x) \) is the standard normal probability density function.
 
 ### Theta (Θ)
 - **Call**: 
-  \[ -\frac{S N'(d_1) \sigma}{2 \sqrt{T}} - r K e^{-rT} N(d_2) \]
+  \[ -\frac{S N'(d1) \sigma}{2 \sqrt{T}} - r K e^{-rT} N(d2) \]
 - **Put**: 
-  \[ -\frac{S N'(d_1) \sigma}{2 \sqrt{T}} + r K e^{-rT} N(-d_2) \]
+  \[ -\frac{S N'(d1) \sigma}{2 \sqrt{T}} + r K e^{-rT} N(-d2) \]
 
 ### Vega (ν)
-\[ \nu = S N'(d_1) \sqrt{T} \]
+\[ \nu = S N'(d1) \sqrt{T} \]
 *Note: Often divided by 100 to represent sensitivity per 1% change in volatility*
 
 ### Rho (ρ)
 - **Call**: 
-  \[ K T e^{-rT} N(d_2) \]
+  \[ K T e^{-rT} N(d2) \]
 - **Put**: 
-  \[ -K T e^{-rT} N(-d_2) \]
+  \[ -K T e^{-rT} N(-d2) \]
 *Note: Often divided by 100 to represent sensitivity per 1% change in interest rate*
 
 ## Contributing

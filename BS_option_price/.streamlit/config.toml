@@ -1,0 +1,15 @@
+[theme]
+# Primary accent color for your app
+primaryColor="#FF4B4B" # Example: A shade of red
+
+# Background color of the main content area
+backgroundColor="#F0F2F6" # Example: Light grey
+
+# Background color of the sidebar and other widgets
+secondaryBackgroundColor="#E0E0E0" # Example: Slightly darker light grey
+
+# Color of the text
+textColor="#262626" # Example: Dark grey
+
+# Font family for the app
+font="sans serif" # Options: "sans serif", "serif", "monospace"

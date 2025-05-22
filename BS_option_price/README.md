@@ -1,56 +1,42 @@
-Black-Scholes Option Pricing Calculator
+# Black-Scholes Option Pricing Calculator
 This is a simple Streamlit application that calculates the price of European options (Call and Put) using the Black-Scholes model and also computes the associated "Greeks" (Delta, Gamma, Theta, Vega, and Rho).
 
-📊 About the Black-Scholes Model
+## 📊 About the Black-Scholes Model
 The Black-Scholes model is a mathematical model for the dynamics of a financial market containing derivative investment instruments. From the model, one can deduce the Black-Scholes formula, which gives a theoretical estimate of the price of European-style options.
 
-✨ Features
+## ✨ Features
 Option Pricing: Calculates the theoretical price for both Call and Put options.
 
-Greeks Calculation: Provides key risk measures:
+### Greeks Calculation: Provides key risk measures:
 
-Δ (Delta): Measures the sensitivity of the option's price to a change in the underlying asset's price.
+* Δ (Delta): Measures the sensitivity of the option's price to a change in the underlying asset's price.
 
-Γ (Gamma): Measures the rate of change of Delta with respect to a change in the underlying asset's price.
+* Γ (Gamma): Measures the rate of change of Delta with respect to a change in the underlying asset's price.
 
-Θ (Theta): Measures the sensitivity of the option's price to the passage of time (time decay).
+* Θ (Theta): Measures the sensitivity of the option's price to the passage of time (time decay).
 
-ν (Vega): Measures the sensitivity of the option's price to changes in the volatility of the underlying asset.
+* ν (Vega): Measures the sensitivity of the option's price to changes in the volatility of the underlying asset.
 
-ρ (Rho): Measures the sensitivity of the option's price to a change in the risk-free interest rate.
+* ρ (Rho): Measures the sensitivity of the option's price to a change in the risk-free interest rate.
 
-🚀 How to Run
-Follow these steps to get the application up and running on your local machine.
-
-Prerequisites
-Make sure you have Python installed on your system (Python 3.7+ is recommended).
-
-Running the Application
-Once the dependencies are installed and the virtual environment is activated, run the Streamlit app:
-
-streamlit run app.py
-
-
-This command will open a new tab in your web browser with the Black-Scholes Option Pricing Calculator.
-
-👨‍💻 Usage
+## 👨‍💻 Usage
 Input Parameters: On the left sidebar (or main area, depending on layout), you will see input fields for:
 
-Spot Price (S): Current price of the underlying asset.
+* Spot Price (S): Current price of the underlying asset.
 
-Strike Price (K): Price at which the option can be exercised.
+* Strike Price (K): Price at which the option can be exercised.
 
-Time to Expiry (T): Time remaining until the option expires, in years.
+* Time to Expiry (T): Time remaining until the option expires, in years.
 
-Risk Free Interest Rate (r): The annual risk-free interest rate.
+* Risk Free Interest Rate (r): The annual risk-free interest rate.
 
-Volatility (σ): The standard deviation of the underlying asset's returns.
+* Volatility (σ): The standard deviation of the underlying asset's returns.
 
-Calculate: After entering all the parameters, click the "Calculate" button.
+* Calculate: After entering all the parameters, click the "Calculate" button.
 
 View Results: The application will display the calculated price for both Call and Put options, along with their respective Greeks.
 
-📜 Black-Scholes Formulas (Simplified) and Calculation Details
+## 📜 Black-Scholes Formulas (Simplified) and Calculation Details
 The core of the calculation uses the Black-Scholes formula:
 
 For a Call Option:
@@ -213,5 +199,4 @@ Put: −KTe
 🤝 Contributing
 Feel free to fork this repository, make improvements, and submit pull requests.
 
-📄 License
-This project is open-source and available under the MIT License.
+.

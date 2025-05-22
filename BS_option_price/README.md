@@ -36,167 +36,54 @@ Input Parameters: On the left sidebar (or main area, depending on layout), you w
 
 View Results: The application will display the calculated price for both Call and Put options, along with their respective Greeks.
 
-## 📜 Black-Scholes Formulas (Simplified) and Calculation Details
-The core of the calculation uses the Black-Scholes formula:
+# Black-Scholes Option Pricing Model
 
-For a Call Option:
-C=SN(d 
-1
-​
- )−Ke 
-−rT
- N(d 
-2
-​
- )
+## Core Formulas
 
-For a Put Option:
-P=Ke 
-−rT
- N(−d 
-2
-​
- )−SN(−d 
-1
-​
- )
+### Call Option Price
+\[ C = S N(d_1) - K e^{-rT} N(d_2) \]
+
+### Put Option Price
+\[ P = K e^{-rT} N(-d_2) - S N(-d_1) \]
+
+### Intermediate Calculations
+\[ d_1 = \frac{\ln(S/K) + (r + \sigma^2/2)T}{\sigma \sqrt{T}} \]
+\[ d_2 = d_1 - \sigma \sqrt{T} \]
 
 Where:
-d 
-1
-​
- = 
-σ 
-T
-​
- 
-ln(S/K)+(r+σ 
-2
- /2)T
-​
- 
-d 
-2
-​
- =d 
-1
-​
- −σ 
-T
-​
- 
+- \( S \) = Current stock price
+- \( K \) = Strike price
+- \( T \) = Time to expiration (in years)
+- \( r \) = Risk-free interest rate
+- \( \sigma \) = Volatility of the underlying asset
+- \( N(x) \) = Cumulative standard normal distribution function
 
-And N(x) is the cumulative standard normal distribution function.
+## Option Greeks
 
-The "Greeks" are calculated based on these parameters and the intermediate values d 
-1
-​
-  and d 
-2
-​
- :
+### Delta (Δ)
+- **Call**: \( N(d_1) \)
+- **Put**: \( N(d_1) - 1 \) (or \( -N(-d_1) \))
 
-Delta (Δ):
+### Gamma (Γ)
+\[ \Gamma = \frac{N'(d_1)}{S \sigma \sqrt{T}} \]
+Where \( N'(x) \) is the standard normal probability density function.
 
-Call: N(d 
-1
-​
- )
+### Theta (Θ)
+- **Call**: 
+  \[ -\frac{S N'(d_1) \sigma}{2 \sqrt{T}} - r K e^{-rT} N(d_2) \]
+- **Put**: 
+  \[ -\frac{S N'(d_1) \sigma}{2 \sqrt{T}} + r K e^{-rT} N(-d_2) \]
 
-Put: N(d 
-1
-​
- )−1 (or −N(−d 
-1
-​
- ))
+### Vega (ν)
+\[ \nu = S N'(d_1) \sqrt{T} \]
+*Note: Often divided by 100 to represent sensitivity per 1% change in volatility*
 
-Gamma (Γ):
+### Rho (ρ)
+- **Call**: 
+  \[ K T e^{-rT} N(d_2) \]
+- **Put**: 
+  \[ -K T e^{-rT} N(-d_2) \]
+*Note: Often divided by 100 to represent sensitivity per 1% change in interest rate*
 
-Sσ 
-T
-​
- 
-N 
-′
- (d 
-1
-​
- )
-​
-  where N 
-′
- (x) is the standard normal probability density function.
-
-Theta (Θ):
-
-Call: − 
-2 
-T
-​
- 
-SN 
-′
- (d 
-1
-​
- )σ
-​
- −rKe 
-−rT
- N(d 
-2
-​
- )
-
-Put: − 
-2 
-T
-​
- 
-SN 
-′
- (d 
-1
-​
- )σ
-​
- +rKe 
-−rT
- N(−d 
-2
-​
- )
-
-Vega (ν):
-
-SN 
-′
- (d 
-1
-​
- ) 
-T
-​
-  (often divided by 100 as it's sensitivity per 1% change in volatility)
-
-Rho (ρ):
-
-Call: KTe 
-−rT
- N(d 
-2
-​
- ) (often divided by 100 as it's sensitivity per 1% change in interest rate)
-
-Put: −KTe 
-−rT
- N(−d 
-2
-​
- ) (often divided by 100 as it's sensitivity per 1% change in interest rate)
-
-🤝 Contributing
+## Contributing
 Feel free to fork this repository, make improvements, and submit pull requests.
-
-.

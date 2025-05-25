@@ -24,8 +24,8 @@ A web-based application for backtesting moving average crossover trading strateg
 - pandas 2.1.0+
 - Plotly 5.16.1+
 
-##🔍 Usage
-1) Configure Strategy Parameters
+## 🔍 Usage
+### 1) Configure Strategy Parameters
 
 * Set the number of days to simulate
 
@@ -37,13 +37,13 @@ A web-based application for backtesting moving average crossover trading strateg
 
 * Configure initial capital and stop-loss percentage
 
-2) Run the Backtest
+### 2) Run the Backtest
 
 * Click "Run Backtest" to execute the simulation
 
 * View the results in the interactive dashboard
 
-3) Analyze Performance
+### 3) Analyze Performance
 
 * Review metrics like total return, win rate, and drawdown
 

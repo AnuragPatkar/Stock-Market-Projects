@@ -4,121 +4,194 @@
 
 {% block content %}
 <div class="container py-5">
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <div class="card shadow-sm mb-4">
-                <div class="card-body p-4">
-                    <h1 class="display-5 mb-4">Contact Us</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Page Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary mb-3">Contact Us</h1>
+                <p class="lead text-muted">Have questions about our Trading Strategy Backtester or need help with your algorithmic trading journey? Our team is ready to assist you.</p>
+            </div>
 
-                    <p class="lead mb-4">Have questions about the Trading Strategy Backtester or need help with your algorithmic trading journey? We're here to assist you.</p>
-
-                    <div class="row mb-4">
-                        <div class="col-md-6 mb-4 mb-md-0">
-                            <div class="card h-100 border-0 shadow-sm">
-                                <div class="card-body text-center p-4">
-                                    <div class="mb-3">
-                                        <i class="fas fa-users fa-3x text-primary"></i>
-                                    </div>
-                                    <h4>Join Our Community</h4>
-                                    <p class="mb-3">Connect with fellow algorithmic traders, share strategies, and get personalized support.</p>
-                                    <a href="#" class="btn btn-primary" target="_blank">
-                                        Join The Quantitative Elite
-                                    </a>
-                                </div>
+            <!-- Contact Form Card -->
+            <div class="card shadow-lg border-0 rounded-lg overflow-hidden mb-5">
+                <div class="row g-0">
+                    <!-- Form Section -->
+                    <div class="col-lg-7 p-4 p-md-5">
+                        <h2 class="h3 mb-4">Send us a message</h2>
+                        
+                        <form id="contactForm" novalidate>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Your Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" required>
+                                <div class="invalid-feedback">Please enter your name</div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card h-100 border-0 shadow-sm">
-                                <div class="card-body text-center p-4">
-                                    <div class="mb-3">
-                                        <i class="fab fa-youtube fa-3x text-danger"></i>
-                                    </div>
-                                    <h4>Video Tutorials</h4>
-                                    <p class="mb-3">Watch step-by-step tutorials on algorithmic trading concepts and implementation.</p>
-                                    <a href="#" class="btn btn-outline-danger" target="_blank">
-                                        Subscribe on YouTube
-                                    </a>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" required>
+                                <div class="invalid-feedback">Please enter a valid email address</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject <span class="text-danger">*</span></label>
+                                <select class="form-select" id="subject" required>
+                                    <option value="" selected disabled>Select a subject</option>
+                                    <option value="question">Question about the backtester</option>
+                                    <option value="bug">Report a bug</option>
+                                    <option value="feature">Feature request</option>
+                                    <option value="partnership">Partnership inquiry</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a subject</div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                                <div class="invalid-feedback">Please enter your message</div>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <span id="submitText">Send Message</span>
+                                    <span id="submitSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div id="successMessage" class="alert alert-success mt-4 d-none">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-check-circle fa-2x"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h5 class="alert-heading mb-2">Message Sent Successfully!</h5>
+                                    <p class="mb-0">Thank you for contacting us. We'll respond to your inquiry within 24-48 hours.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <h3 class="mb-3">Send Us a Message</h3>
-                    <form id="contactForm">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Your Name</label>
-                            <input type="text" class="form-control" id="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="subject" class="form-label">Subject</label>
-                            <select class="form-select" id="subject" required>
-                                <option value="" selected disabled>Select a subject</option>
-                                <option value="question">Question about the backtester</option>
-                                <option value="bug">Report a bug</option>
-                                <option value="feature">Feature request</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-
-                    <div id="successMessage" class="alert alert-success mt-4 d-none">
-                        <div class="d-flex">
-                            <div class="me-3">
-                                <i class="fas fa-check-circle fa-2x"></i>
+                    
+                    <!-- Contact Info Section -->
+                    <div class="col-lg-5 bg-light p-4 p-md-5 d-flex align-items-center">
+                        <div>
+                            <h3 class="h4 mb-4">Other ways to reach us</h3>
+                            
+                            <div class="d-flex mb-4">
+                                <div class="me-3 text-primary">
+                                    <i class="fas fa-envelope fa-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="h6 mb-1">Email Support</h4>
+                                    <p class="mb-0 text-muted">support@backtester.com</p>
+                                </div>
                             </div>
-                            <div>
-                                <h5>Message Sent!</h5>
-                                <p class="mb-0">Thank you for reaching out. We'll respond to your inquiry as soon as possible.</p>
+                            
+                            <div class="d-flex mb-4">
+                                <div class="me-3 text-primary">
+                                    <i class="fas fa-phone-alt fa-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="h6 mb-1">Phone Support</h4>
+                                    <p class="mb-0 text-muted">+1 (555) 123-4567</p>
+                                    <small class="text-muted">Mon-Fri, 9am-5pm EST</small>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex mb-4">
+                                <div class="me-3 text-primary">
+                                    <i class="fas fa-map-marker-alt fa-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="h6 mb-1">Our Office</h4>
+                                    <p class="mb-0 text-muted">123 Trading Street<br>New York, NY 10001</p>
+                                </div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <h4 class="h6 mb-3">Follow Us</h4>
+                            <div class="d-flex">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="fab fa-github"></i></a>
+                                <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-youtube"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="card shadow-sm">
+            
+            <!-- Resources Section -->
+            <div class="card shadow-sm border-0 mb-4">
                 <div class="card-body p-4">
-                    <h3 class="mb-3">Additional Resources</h3>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <i class="fab fa-github fa-2x text-dark"></i>
-                                </div>
-                                <div>
-                                    <h5 class="mb-1">GitHub Repository</h5>
-                                    <p class="mb-0">Access the source code: <a href="#" target="_blank">Trading Strategy Backtester</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <i class="fas fa-code fa-2x text-secondary"></i>
-                                </div>
-                                <div>
-                                    <h5 class="mb-1">Live Demo</h5>
-                                    <p class="mb-0">Try it online: <a href="#" target="_blank">Replit Demo</a></p>
+                    <h3 class="h4 mb-4">Helpful Resources</h3>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm-hover">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="me-3 text-info">
+                                            <i class="fas fa-book fa-2x"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="h5 mb-2">Documentation</h4>
+                                            <p class="text-muted mb-2">Explore our comprehensive guides and API documentation.</p>
+                                            <a href="#" class="btn btn-sm btn-outline-info">View Docs</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <i class="fas fa-graduation-cap fa-2x text-info"></i>
+                        
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm-hover">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="me-3 text-danger">
+                                            <i class="fas fa-video fa-2x"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="h5 mb-2">Video Tutorials</h4>
+                                            <p class="text-muted mb-2">Learn through our step-by-step video tutorials.</p>
+                                            <a href="#" class="btn btn-sm btn-outline-danger">Watch Videos</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h5 class="mb-1">Learn More</h5>
-                                    <p class="mb-0">Take your skills to the next level with our <a href="#" target="_blank">advanced courses</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm-hover">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="me-3 text-success">
+                                            <i class="fab fa-github fa-2x"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="h5 mb-2">GitHub Repository</h4>
+                                            <p class="text-muted mb-2">Access the source code and contribute to the project.</p>
+                                            <a href="https://github.com/AnuragPatkar/Stock-Market-Projects/tree/main/Project%204%20strategy%20backtester" target="_blank" class="btn btn-sm btn-outline-success">View on GitHub</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm-hover">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="me-3 text-warning">
+                                            <i class="fas fa-comments fa-2x"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="h5 mb-2">Community Forum</h4>
+                                            <p class="text-muted mb-2">Join discussions with other algorithmic traders.</p>
+                                            <a href="#" class="btn btn-sm btn-outline-warning">Join Forum</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -130,30 +203,75 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const contactForm = document.getElementById('contactForm');
-        const successMessage = document.getElementById('successMessage');
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const submitText = document.getElementById('submitText');
+    const submitSpinner = document.getElementById('submitSpinner');
+    const successMessage = document.getElementById('successMessage');
 
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // In a real application, you would send the form data to a server here
-            // For demonstration purposes, we'll just show the success message
-
-            // Clear form
+    // Form validation
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        if (!contactForm.checkValidity()) {
+            e.stopPropagation();
+            contactForm.classList.add('was-validated');
+            return;
+        }
+        
+        // Show loading state
+        submitText.textContent = 'Sending...';
+        submitSpinner.classList.remove('d-none');
+        submitBtn.disabled = true;
+        
+        // Simulate form submission (replace with actual AJAX call)
+        setTimeout(function() {
+            // Hide loading state
+            submitText.textContent = 'Send Message';
+            submitSpinner.classList.add('d-none');
+            submitBtn.disabled = false;
+            
+            // Reset form
+            contactForm.classList.remove('was-validated');
             contactForm.reset();
-
+            
             // Show success message
             successMessage.classList.remove('d-none');
-
-            // Scroll to success message
+            
+            // Scroll to success message smoothly
             successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
+            
             // Hide success message after 5 seconds
             setTimeout(function() {
                 successMessage.classList.add('d-none');
             }, 5000);
+            
+        }, 1500);
+    });
+    
+    // Reset validation when user starts typing
+    contactForm.querySelectorAll('input, textarea, select').forEach(input => {
+        input.addEventListener('input', function() {
+            if (contactForm.classList.contains('was-validated')) {
+                this.classList.remove('is-invalid');
+            }
         });
     });
+});
 </script>
+
+<style>
+    .shadow-sm-hover:hover {
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        transition: box-shadow 0.2s ease;
+    }
+    .card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+        transform: translateY(-2px);
+    }
+</style>
 {% endblock %}
